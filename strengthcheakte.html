@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        .strength {
+            font-weight: bold;
+        }
+        .weak {
+            color: red;
+        }
+        .moderate {
+            color: orange;
+        }
+        .strong {
+            color: green;
+        }
+        .very-strong {
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <h2>Password Strength Checker</h2>
+    <input type="password" id="password" placeholder="Enter your password" onkeyup="checkPasswordStrength()">
+    <p>Password Strength: <span id="strength" class="strength"></span></p>
+
+    <script>
+        function checkPasswordStrength() {
+            var password = document.getElementById("password").value;
+            var strength = document.getElementById("strength");
+
+            var score = 0;
+            if (password.length >= 8) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[\W_]/.test(password)) score++;
+
+            switch(score) {
+                case 5:
+                    strength.textContent = "Very Strong";
+                    strength.className = "strength very-strong";
+                    break;
+                case 4:
+                    strength.textContent = "Strong";
+                    strength.className = "strength strong";
+                    break;
+                case 3:
+                    strength.textContent = "Moderate";
+                    strength.className = "strength moderate";
+                    break;
+                default:
+                    strength.textContent = "Weak";
+                    strength.className = "strength weak";
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
